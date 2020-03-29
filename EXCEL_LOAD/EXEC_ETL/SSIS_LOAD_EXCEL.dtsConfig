@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DTSConfiguration>
+   <DTSConfigurationHeading>
+      <DTSConfigurationFileInfo GeneratedBy="ITAUCHILE\CCRB050K" GeneratedFromPackageName="SSIS_LOAD_EXCEL" GeneratedFromPackageID="{5B08509B-AA46-429B-B1A0-FE649102509F}" GeneratedDate="14/03/2019 15:02:02" />
+   </DTSConfigurationHeading>
+   <Configuration ConfiguredType="Property" Path="\Package.Connections[CONEXION_SQL].Properties[ConnectionString]" ValueType="String">
+      <ConfiguredValue>Data Source=«SERVIDOR»;Initial Catalog=«BASE_DE_DATOS»;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;</ConfiguredValue>
+   </Configuration>
+   <Configuration ConfiguredType="Property" Path="\Package.Variables[User::EXTENCION].Properties[Value]" ValueType="String">
+      <ConfiguredValue>.XLS</ConfiguredValue>
+   </Configuration>
+   <Configuration ConfiguredType="Property" Path="\Package.Variables[User::NOMBRE_ARCHIVO].Properties[Value]" ValueType="String">
+      <ConfiguredValue>SUPERSTORE</ConfiguredValue>
+   </Configuration>
+   <Configuration ConfiguredType="Property" Path="\Package.Variables[User::RUTA_DIRECTORIO].Properties[Value]" ValueType="String">
+      <ConfiguredValue>C:\SAMPLES\EXCEL\</ConfiguredValue>
+   </Configuration>
+</DTSConfiguration>

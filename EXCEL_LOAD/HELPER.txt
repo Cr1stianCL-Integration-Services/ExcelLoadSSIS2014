@@ -1,0 +1,26 @@
+-- ========================================================================================
+-- Author:				Cristian Rosas
+-- Description:			the directory contains the logic to load  an excel file
+--						xls(excel) to SQL Server 2014.
+--
+-- Contains:			-Source Integration Services SSIS (ETL)
+--						-Executable  rdy for production and the config
+							-Exec ETL
+							-dtsxConfig ETL
+--						-SQL Server Script to create the table with same structure that file						 el archivo xls(excel)
+						-And the file that is going to be loaded.
+-- ========================================================================================
+
+-- ========================================================================================
+-- Author:				Cristian Rosas
+-- Description:			Directorios que contienen el funcionamiento completo de carga de un
+--						archivo xls(excel) hacia base de dato Sql Server 2014.
+--
+-- Contiene:			-Fuentes Integration Services de la ETL
+--						-Ejecutable  listo para produccion y su config
+							-Ejecutable dtsx
+							-configuracion dtsxConfig
+--						-Script Sql Server que crea la tabla con estructura adecuada para cargar
+						 el archivo xls(excel)
+						-Y finalmente el archivo que será cargado por esta ETL.
+-- ========================================================================================

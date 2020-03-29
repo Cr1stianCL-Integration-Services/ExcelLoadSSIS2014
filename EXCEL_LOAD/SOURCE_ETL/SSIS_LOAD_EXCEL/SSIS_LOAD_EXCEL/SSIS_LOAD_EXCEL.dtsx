@@ -1,0 +1,1730 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="3/12/2019 9:26:42 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="L68F728A23354"
+  DTS:CreatorName="ITAUCHILE\CCRB050K"
+  DTS:DTSID="{5B08509B-AA46-429B-B1A0-FE649102509F}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="SSIS_LOAD_EXCEL"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{1AB74A57-C37D-4806-ACE9-757204CE90B3}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[CONEXION_SQL]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{93353208-B2DF-4DA7-BF54-FCDCBA770685}"
+      DTS:ObjectName="CONEXION_SQL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=CLSTGSQLL06;Initial Catalog=dashboard2;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{AF324CA2-8FA1-4A60-8CB9-53E92D82DAF0}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\SAMPLES\EXCEL\SUPERSTORE.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{798DBD3F-CF64-4895-BFCC-F7E4A1BC271A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="CUENTAS_FILAS">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FEAC0079-A415-45BE-BFBD-C2AF90854F08}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="EXTENCION">
+      <DTS:VariableValue
+        DTS:DataType="8">.XLS</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{48FFA15C-FE3C-4C74-88B8-A277C5C46FDB}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="NOMBRE_ARCHIVO">
+      <DTS:VariableValue
+        DTS:DataType="8">SUPERSTORE</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{438BA6E9-00AB-4E45-952C-27837097F812}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::RUTA_DIRECTORIO] +  @[User::NOMBRE_ARCHIVO] + @[User::EXTENCION]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RUTA_ARCHIVO_COMPLETA">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\SAMPLES\EXCEL\SUPERSTORE.XLS</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{77350EFB-BAB0-4F7A-9810-89DDAF1B4A44}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="RUTA_DIRECTORIO">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\SAMPLES\EXCEL\</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:DelayValidation="True"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{69CA66C7-E06F-4AEF-8E8F-7E0D1968BD72}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{0233E284-5513-4982-A1F2-F1E8D498622A}"
+        DTS:ObjectName="{0233E284-5513-4982-A1F2-F1E8D498622A}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::RUTA_DIRECTORIO]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="C:\SAMPLES\EXCEL\" />
+            <FEFEProperty
+              FileSpec="*.xls" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="DelayValidation">TRUE</DTS:PropertyExpression>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\BORRA TABLA"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{D8F64280-35A2-4FF7-A9D4-95A4B1DE9159}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="BORRA TABLA"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{93353208-B2DF-4DA7-BF54-FCDCBA770685}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE TBL_SUPERSTORE" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container\CARGA DE DATOS"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{CD01C42D-CBFF-47AC-BB94-CE8D874B0725}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="CARGA DE DATOS"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Foreach Loop Container\CARGA DE DATOS\CONTADOR"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="CONTADOR">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::CUENTAS_FILAS</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\CONTADOR.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\CONTADOR.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\Foreach Loop Container\CARGA DE DATOS\CONTADOR.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source"
+                  componentClassID="Microsoft.ExcelSource"
+                  contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Excel Source"
+                  name="Excel Source"
+                  usesDispositions="true"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">Orders$</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mapping from parameters in the SQL command to variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                      connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output]"
+                      name="Excel Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Row ID]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Row ID]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Row ID]"
+                          name="Row ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Order ID]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Order ID]"
+                          length="200"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Order ID]"
+                          name="Order ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Order Date]"
+                          dataType="date"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Order Date]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Order Date]"
+                          name="Order Date"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Ship Date]"
+                          dataType="date"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Ship Date]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Ship Date]"
+                          name="Ship Date"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Ship Mode]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Ship Mode]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Ship Mode]"
+                          name="Ship Mode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Customer ID]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Customer ID]"
+                          length="200"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Customer ID]"
+                          name="Customer ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Customer Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Customer Name]"
+                          length="200"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Customer Name]"
+                          name="Customer Name"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Segment]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Segment]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Segment]"
+                          name="Segment"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Country]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Country]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Country]"
+                          name="Country"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[City]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[City]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[City]"
+                          name="City"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[State]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[State]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[State]"
+                          name="State"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Postal Code]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Postal Code]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Postal Code]"
+                          name="Postal Code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Region]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Region]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Region]"
+                          name="Region"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Product ID]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Product ID]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Product ID]"
+                          name="Product ID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Category]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Category]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Category]"
+                          name="Category"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Sub-Category]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sub-Category]"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Sub-Category]"
+                          name="Sub-Category"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Product Name]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Product Name]"
+                          length="500"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Product Name]"
+                          name="Product Name"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Sales]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sales]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Sales]"
+                          name="Sales"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Quantity]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Quantity]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Quantity]"
+                          name="Quantity"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Discount]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Discount]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Discount]"
+                          name="Discount"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Profit]"
+                          dataType="r8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Profit]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Profit]"
+                          name="Profit"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Row ID]"
+                          dataType="r8"
+                          name="Row ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Order ID]"
+                          dataType="wstr"
+                          length="255"
+                          name="Order ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Order Date]"
+                          dataType="date"
+                          name="Order Date" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Ship Date]"
+                          dataType="date"
+                          name="Ship Date" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Ship Mode]"
+                          dataType="wstr"
+                          length="255"
+                          name="Ship Mode" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Customer ID]"
+                          dataType="wstr"
+                          length="255"
+                          name="Customer ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Customer Name]"
+                          dataType="wstr"
+                          length="255"
+                          name="Customer Name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Segment]"
+                          dataType="wstr"
+                          length="255"
+                          name="Segment" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Country]"
+                          dataType="wstr"
+                          length="255"
+                          name="Country" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[City]"
+                          dataType="wstr"
+                          length="255"
+                          name="City" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[State]"
+                          dataType="wstr"
+                          length="255"
+                          name="State" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Postal Code]"
+                          dataType="r8"
+                          name="Postal Code" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Region]"
+                          dataType="wstr"
+                          length="255"
+                          name="Region" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Product ID]"
+                          dataType="wstr"
+                          length="255"
+                          name="Product ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Category]"
+                          dataType="wstr"
+                          length="255"
+                          name="Category" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sub-Category]"
+                          dataType="wstr"
+                          length="255"
+                          name="Sub-Category" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Product Name]"
+                          dataType="wstr"
+                          length="255"
+                          name="Product Name" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Sales]"
+                          dataType="r8"
+                          name="Sales" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Quantity]"
+                          dataType="r8"
+                          name="Quantity" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Discount]"
+                          dataType="r8"
+                          name="Discount" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].ExternalColumns[Profit]"
+                          dataType="r8"
+                          name="Profit" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output]"
+                      isErrorOut="true"
+                      name="Excel Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Row ID]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Row ID]"
+                          name="Row ID" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Order ID]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Order ID]"
+                          name="Order ID" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Order Date]"
+                          dataType="date"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Order Date]"
+                          name="Order Date" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Ship Date]"
+                          dataType="date"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Ship Date]"
+                          name="Ship Date" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Ship Mode]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Ship Mode]"
+                          name="Ship Mode" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Customer ID]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Customer ID]"
+                          name="Customer ID" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Customer Name]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Customer Name]"
+                          name="Customer Name" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Segment]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Segment]"
+                          name="Segment" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Country]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Country]"
+                          name="Country" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[City]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[City]"
+                          name="City" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[State]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[State]"
+                          name="State" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Postal Code]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Postal Code]"
+                          name="Postal Code" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Region]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Region]"
+                          name="Region" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Product ID]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Product ID]"
+                          name="Product ID" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Category]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Category]"
+                          name="Category" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Sub-Category]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Sub-Category]"
+                          name="Sub-Category" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Product Name]"
+                          dataType="wstr"
+                          length="255"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Product Name]"
+                          name="Product Name" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Sales]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Sales]"
+                          name="Sales" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Quantity]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Quantity]"
+                          name="Quantity" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Discount]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Discount]"
+                          name="Discount" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Profit]"
+                          dataType="r8"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[Profit]"
+                          name="Profit" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="TRANSFIERE DATOS A TABLA"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[TBL_SUPERSTORE]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[CONEXION_SQL]"
+                      connectionManagerRefId="Package.ConnectionManagers[CONEXION_SQL]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[Sales]"
+                          cachedDataType="r8"
+                          cachedName="Sales"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SALES]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Sales]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[Quantity]"
+                          cachedDataType="r8"
+                          cachedName="Quantity"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[QUANTITY]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Quantity]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[Discount]"
+                          cachedDataType="r8"
+                          cachedName="Discount"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[DISCOUNT]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Discount]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[Profit]"
+                          cachedDataType="r8"
+                          cachedName="Profit"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[PROFIT]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Profit]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[Row ID]"
+                          cachedDataType="r8"
+                          cachedName="Row ID"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[ROW_ID]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Row ID]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[Order Date]"
+                          cachedDataType="date"
+                          cachedName="Order Date"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[ORDER_DATE]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Order Date]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[Ship Date]"
+                          cachedDataType="date"
+                          cachedName="Ship Date"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SHIP_DATE]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Ship Date]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[Postal Code]"
+                          cachedDataType="r8"
+                          cachedName="Postal Code"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[POSTAL_CODE]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Postal Code]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[SHIP_MODE_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="SHIP_MODE_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SHIP_MODE]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SHIP_MODE_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[CUSTOMER_NAME_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="CUSTOMER_NAME_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER_NAME]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CUSTOMER_NAME_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[SEGMENT_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="SEGMENT_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SEGMENT]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SEGMENT_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[COUNTRY_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="COUNTRY_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[COUNTRY]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[COUNTRY_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[CITY_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="CITY_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CITY]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CITY_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[STATES_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="STATES_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[STATES]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[STATES_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[CUSTOMER_ID_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="CUSTOMER_ID_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER_ID]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CUSTOMER_ID_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[REGION_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="REGION_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[REGION]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[REGION_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[PRODUCT_ID_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="PRODUCT_ID_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[PRODUCT_ID]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[PRODUCT_ID_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[CATEGORY_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="CATEGORY_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CATEGORY]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CATEGORY_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[SUBCATEGORY_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="SUBCATEGORY_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SUB_CATEGORY]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SUBCATEGORY_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[PRUDUCT_NAME_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="500"
+                          cachedName="PRUDUCT_NAME_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[PROCUCT_NAME]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[PRUDUCT_NAME_CONVERTED]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].Columns[ORDER_ID_CONVERTED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="ORDER_ID_CONVERTED"
+                          externalMetadataColumnId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[ORDER_ID]"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[ORDER_ID_CONVERTED]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          dataType="i4"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[ROW_ID]"
+                          dataType="i4"
+                          name="ROW_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[ORDER_ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="ORDER_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[ORDER_DATE]"
+                          dataType="dbTimeStamp"
+                          name="ORDER_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SHIP_DATE]"
+                          dataType="dbTimeStamp"
+                          name="SHIP_DATE" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SHIP_MODE]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="SHIP_MODE" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER_ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="CUSTOMER_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CUSTOMER_NAME]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="CUSTOMER_NAME" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SEGMENT]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="SEGMENT" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[COUNTRY]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="COUNTRY" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CITY]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="CITY" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[STATES]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="STATES" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[POSTAL_CODE]"
+                          dataType="i4"
+                          name="POSTAL_CODE" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[REGION]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="REGION" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[PRODUCT_ID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="PRODUCT_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CATEGORY]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="CATEGORY" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SUB_CATEGORY]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="SUB_CATEGORY" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[PROCUCT_NAME]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="PROCUCT_NAME" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[SALES]"
+                          dataType="r8"
+                          name="SALES" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[QUANTITY]"
+                          dataType="i4"
+                          name="QUANTITY" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[DISCOUNT]"
+                          dataType="r8"
+                          name="DISCOUNT" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[PROFIT]"
+                          dataType="r8"
+                          name="PROFIT" />
+                        <externalMetadataColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input].ExternalColumns[CREATION_DATE]"
+                          dataType="dbTimeStamp"
+                          name="CREATION_DATE" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="TRANSFORMACION"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Ship Mode]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Ship Mode"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Ship Mode]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Customer ID]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="Customer ID"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Customer ID]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Customer Name]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="Customer Name"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Customer Name]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Segment]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Segment"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Segment]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Country]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Country"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Country]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[City]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="City"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[City]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[State]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="State"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[State]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Region]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Region"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Region]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Product ID]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Product ID"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Product ID]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Category]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Category"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Category]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Sub-Category]"
+                          cachedDataType="wstr"
+                          cachedLength="100"
+                          cachedName="Sub-Category"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Sub-Category]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Product Name]"
+                          cachedDataType="wstr"
+                          cachedLength="500"
+                          cachedName="Product Name"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Product Name]" />
+                        <inputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input].Columns[Order ID]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="Order ID"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Order ID]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SHIP_MODE_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SHIP_MODE_CONVERTED]"
+                          name="SHIP_MODE_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Ship Mode]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)[Ship Mode]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CUSTOMER_ID_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="200"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CUSTOMER_ID_CONVERTED]"
+                          name="CUSTOMER_ID_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,200,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Customer ID]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,200,1252)[Customer ID]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CUSTOMER_NAME_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="200"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CUSTOMER_NAME_CONVERTED]"
+                          name="CUSTOMER_NAME_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,200,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Customer Name]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,200,1252)[Customer Name]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SEGMENT_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SEGMENT_CONVERTED]"
+                          name="SEGMENT_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Segment]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)Segment</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[COUNTRY_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[COUNTRY_CONVERTED]"
+                          name="COUNTRY_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Country]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)Country</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CITY_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CITY_CONVERTED]"
+                          name="CITY_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[City]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)City</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[STATES_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[STATES_CONVERTED]"
+                          name="STATES_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[State]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)State</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[REGION_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[REGION_CONVERTED]"
+                          name="REGION_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Region]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)Region</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[PRODUCT_ID_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[PRODUCT_ID_CONVERTED]"
+                          name="PRODUCT_ID_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Product ID]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)[Product ID]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CATEGORY_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[CATEGORY_CONVERTED]"
+                          name="CATEGORY_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Category]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)Category</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SUBCATEGORY_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="100"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[SUBCATEGORY_CONVERTED]"
+                          name="SUBCATEGORY_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,100,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Sub-Category]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,100,1252)[Sub-Category]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[PRUDUCT_NAME_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="500"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[PRUDUCT_NAME_CONVERTED]"
+                          name="PRUDUCT_NAME_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,500,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Product Name]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,500,1252)[Product Name]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[ORDER_ID_CONVERTED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="200"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output].Columns[ORDER_ID_CONVERTED]"
+                          name="ORDER_ID_CONVERTED"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,200,1252)#{Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output].Columns[Order ID]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,200,1252)[Order ID]</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Foreach Loop Container\CARGA DE DATOS.Paths[Derived Column Output]"
+                  endId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Foreach Loop Container\CARGA DE DATOS.Paths[Excel Source Output]"
+                  endId="Package\Foreach Loop Container\CARGA DE DATOS\CONTADOR.Inputs[Row Count Input 1]"
+                  name="Excel Source Output"
+                  startId="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source.Outputs[Excel Source Output]" />
+                <path
+                  refId="Package\Foreach Loop Container\CARGA DE DATOS.Paths[Row Count Output 1]"
+                  endId="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION.Inputs[Derived Column Input]"
+                  name="Row Count Output 1"
+                  startId="Package\Foreach Loop Container\CARGA DE DATOS\CONTADOR.Outputs[Row Count Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{5D5A04DE-7553-49C1-8BAF-0ED87E758F60}"
+          DTS:From="Package\Foreach Loop Container\BORRA TABLA"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach Loop Container\CARGA DE DATOS" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{674E4BD2-D771-4413-BB0E-674F0B2C59DB}"
+          DTS:ObjectName="{674E4BD2-D771-4413-BB0E-674F0B2C59DB}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::RUTA_ARCHIVO_COMPLETA" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Foreach Loop Container\BORRA TABLA"
+          TopLeft="34,25" />
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Foreach Loop Container\CARGA DE DATOS"
+          TopLeft="27,110" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="109.25,67">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43"
+              Start="0,0"
+              End="0,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="225,190"
+          Size="225,233"
+          Id="Package\Foreach Loop Container"
+          TopLeft="133,113" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container\CARGA DE DATOS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="141,42"
+          Id="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source"
+          TopLeft="89,41" />
+        <NodeLayout
+          Size="222,42"
+          Id="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA"
+          TopLeft="305,93" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFORMACION"
+          TopLeft="253,244" />
+        <NodeLayout
+          Size="136,42"
+          Id="Package\Foreach Loop Container\CARGA DE DATOS\CONTADOR"
+          TopLeft="89,149" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\CARGA DE DATOS.Paths[Excel Source Output]"
+          TopLeft="158.25,83">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,66"
+              Start="0,0"
+              End="0,58.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,58.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\CARGA DE DATOS.Paths[Derived Column Output]"
+          TopLeft="367,244">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="49,-109"
+              Start="0,0"
+              End="49,-101.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-40.1993127147766" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-40.1993127147766"
+                    Point2="0,-44.1993127147766"
+                    Point3="4,-44.1993127147766" />
+                  <mssgle:LineSegment
+                    End="45,-44.1993127147766" />
+                  <mssgle:CubicBezierSegment
+                    Point1="45,-44.1993127147766"
+                    Point2="49,-44.1993127147766"
+                    Point3="49,-48.1993127147766" />
+                  <mssgle:LineSegment
+                    End="49,-101.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container\CARGA DE DATOS.Paths[Row Count Output 1]"
+          TopLeft="157,191">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="155,53"
+              Start="0,0"
+              End="155,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5085910652921" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,27.5085910652921"
+                    Point2="0,31.5085910652921"
+                    Point3="4,31.5085910652921" />
+                  <mssgle:LineSegment
+                    End="151,31.5085910652921" />
+                  <mssgle:CubicBezierSegment
+                    Point1="151,31.5085910652921"
+                    Point2="155,31.5085910652921"
+                    Point3="155,35.5085910652921" />
+                  <mssgle:LineSegment
+                    End="155,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\CARGA DE DATOS\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container\CARGA DE DATOS\TRANSFIERE DATOS A TABLA">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
